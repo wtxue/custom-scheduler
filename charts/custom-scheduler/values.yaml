@@ -1,0 +1,46 @@
+nameOverride: ""
+fullnameOverride: ""
+
+clusterScoped: true
+
+rbac:
+  create: true
+
+customScheduler:
+  enabled: true
+  image:
+    repository:  registry.cn-hangzhou.aliyuncs.com/xkcp0324/custom-scheduler
+    tag: v0.0.1
+    pullPolicy: IfNotPresent
+  klogLevel: 3
+  resources:
+    limits:
+      cpu: 250m
+      memory: 150Mi
+    requests:
+      cpu: 80m
+      memory: 50Mi
+scheduler:
+  serviceAccount: custom-scheduler
+  logLevel: 3
+  replicas: 1
+  schedulerName: custom-scheduler
+  extenders:
+    url: http://127.0.0.1
+  resources:
+    limits:
+      cpu: 250m
+      memory: 150Mi
+    requests:
+      cpu: 80m
+      memory: 50Mi
+  #  kubeSchedulerImageName: gcr.io/google-containers/hyperkube
+  kubeSchedulerImageName: registry.cn-hangzhou.aliyuncs.com/google_containers/hyperkube
+  # This will default to matching your kubernetes version
+  # kubeSchedulerImageTag:
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
